@@ -1,7 +1,7 @@
 slides
 ======
 
-An extremely simplistic logs-as-data implementation.
+An extremely simplistic logs-as-events implementation.
 
 ``` ruby
 Slides.log(:app_created, app_id: @app.id, user_id: @user.id)

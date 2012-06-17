@@ -21,8 +21,8 @@ describe Slides::Log do
   end
 
   it "doesn't log nils" do
-    Slides.log :event, succeeded: nil
-    out.must_equal "event"
+    Slides.log :event, succeeded: nil, city: "Berlin"
+    out.must_equal "event city=Berlin"
   end
 
   it "does wrap strings with whitespace in quotes" do

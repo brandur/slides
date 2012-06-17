@@ -1,14 +1,14 @@
 module Slides
   module Log
-    def log(action, attrs = {})
+    def log(event, attrs = {})
       unless block_given?
-        str = "#{action} #{unparse(attrs)}"
+        str = "#{event} #{unparse(attrs)}"
         mtx.synchronize { $stdout.puts str }
       else
         start = Time.now
-        log(action, attrs.merge(at: :start))
+        log(event, attrs.merge(at: :start))
         res = yield
-        log(action, attrs.merge(at: :finish,
+        log(event, attrs.merge(at: :finish,
           elapsed: "#{((Time.now - start) * 1000).to_i}ms"))
         res
       end

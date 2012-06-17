@@ -36,4 +36,14 @@ describe Scrolls::Log do
     out.must_match /event at=start/
     out.must_match /event at=finish elapsed=[0-9]*ms/
   end
+
+  it "calls a Proc to get a value" do
+    Scrolls.log :event, city: Proc.new { "Berlin" }
+    out.must_equal "event city=Berlin"
+  end
+
+  it "calls a lambda to get a value" do
+    Scrolls.log :event, city: -> { "Berlin" }
+    out.must_equal "event city=Berlin"
+  end
 end

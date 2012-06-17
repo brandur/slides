@@ -25,6 +25,7 @@ module Scrolls
     end
 
     def unparse_pair(k, v)
+      v = v.call if v.is_a?(Proc)
       # only quote strings if they include whitespace
       if v.is_a?(String) && v =~ /\s/
         %{#{k}="#{v}"}

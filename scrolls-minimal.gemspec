@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = "scrolls-minimal"
-  gem.version     = "0.1.3"
+  gem.version     = "0.1.4"
 
   gem.author      = "Brandur"
   gem.email       = "brandur@mutelight.org"

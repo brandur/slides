@@ -1,8 +1,17 @@
 module Scrolls
   module Log
     def log(action, attrs = {})
-      str = "#{action} #{unparse(attrs)}"
-      mtx.synchronize { $stdout.puts str }
+      unless block_given?
+        str = "#{action} #{unparse(attrs)}"
+        mtx.synchronize { $stdout.puts str }
+      else
+        start = Time.now
+        log(action, attrs.merge(at: :start))
+        res = yield
+        log(action, attrs.merge(at: :finish,
+          elapsed: "#{((Time.now - start) * 1000).to_i}ms"))
+        res
+      end
     end
 
     private

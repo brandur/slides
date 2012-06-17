@@ -29,4 +29,11 @@ describe Scrolls::Log do
     Scrolls.log :event, city: "San Francisco"
     out.must_equal %{event city="San Francisco"}
   end
+
+  it "takes a block" do
+    res = Scrolls.log(:event) { "block-return-value" }
+    res.must_equal "block-return-value"
+    out.must_match /event at=start/
+    out.must_match /event at=finish elapsed=[0-9]*ms/
+  end
 end

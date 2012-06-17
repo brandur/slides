@@ -4,9 +4,9 @@ Gem::Specification.new do |gem|
 
   gem.author      = "Brandur"
   gem.email       = "brandur@mutelight.org"
-  gem.homepage    = "https://github.com/brandur/scrolls"
+  gem.homepage    = "https://github.com/brandur/slides"
   gem.license     = "MIT"
   gem.summary     = "An extremely simplistic logs-as-data implementation."
 
-  gem.files = %w{lib/scrolls.rb}
+  gem.files = %w{lib/slides.rb}
 end

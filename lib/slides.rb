@@ -21,15 +21,15 @@ module Slides
     end
 
     def unparse(attrs)
-      attrs.select { |k, v| v != nil }.
-        map { |k, v| unparse_pair(k, v) }.
-        join(" ")
+      attrs.map { |k, v| unparse_pair(k, v) }.compact.join(" ")
     end
 
     def unparse_pair(k, v)
       v = v.call if v.is_a?(Proc)
       # only quote strings if they include whitespace
-      if v.is_a?(String) && v =~ /\s/
+      if v == nil
+        nil
+      elsif v.is_a?(String) && v =~ /\s/
         %{#{k}="#{v}"}
       else
         "#{k}=#{v}"

@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = "slides"
-  gem.version     = "0.1.4"
+  gem.version     = "0.1.5"
 
   gem.author      = "Brandur"
   gem.email       = "brandur@mutelight.org"

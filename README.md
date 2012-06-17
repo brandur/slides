@@ -1,5 +1,5 @@
-scrolls-minimal
-===============
+slides
+======
 
 An extremely simplistic logs-as-data implementation.
 

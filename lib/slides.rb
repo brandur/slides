@@ -1,4 +1,4 @@
-module Scrolls
+module Slides
   module Log
     def log(action, attrs = {})
       unless block_given?

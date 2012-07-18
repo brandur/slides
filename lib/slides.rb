@@ -20,6 +20,17 @@ module Slides
       @mtx ||= Mutex.new
     end
 
+    def quote_string(k, v)
+      # try to find a quote style that fits
+      if !v.include?('"')
+        %{#{k}="#{v}"}
+      elsif !v.include?("'")
+        %{#{k}='#{v}'}
+      else
+        %{#{k}="#{v.gsub(/"/, '\\"')}"}
+      end
+    end
+
     def unparse(attrs)
       attrs.map { |k, v| unparse_pair(k, v) }.compact.join(" ")
     end
@@ -30,7 +41,7 @@ module Slides
       if v == nil
         nil
       elsif v.is_a?(String) && v =~ /\s/
-        %{#{k}="#{v}"}
+        quote_string(k, v)
       else
         "#{k}=#{v}"
       end

@@ -25,14 +25,24 @@ describe Slides::Log do
     out.must_equal "event city=Berlin"
   end
 
-  it "does wrap strings with whitespace in quotes" do
+  it "doesn't wrap strings without whitespace in quotes" do
     Slides.log :event, city: "Berlin"
     out.must_equal "event city=Berlin"
   end
 
-  it "doesn't wrap strings without whitespace in quotes" do
+  it "wraps strings with whitespace in quotes" do
     Slides.log :event, city: "San Francisco"
     out.must_equal %{event city="San Francisco"}
+  end
+
+  it "wraps strings with whitespace and double quotes in single quotes" do
+    Slides.log :query, sql: 'SELECT * FROM "events"'
+    out.must_equal %{query sql='SELECT * FROM "events"'}
+  end
+
+  it "escapes quotes in strings with both quote types" do
+    Slides.log :query, sql: %{SELECT * FROM "events" WHERE event = 'sql'}
+    out.must_equal %{query sql="SELECT * FROM \\"events\\" WHERE event = 'sql'"}
   end
 
   it "takes a block" do

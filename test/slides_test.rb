@@ -45,6 +45,11 @@ describe Slides::Log do
     out.must_equal %{query sql="SELECT * FROM \\"events\\" WHERE event = 'sql'"}
   end
 
+  it "transforms times to iso8601" do
+    Slides.log :event, at: Time.utc(2010)
+    out.must_equal "event at=2010-01-01T00:00:00Z"
+  end
+
   it "takes a block" do
     res = Slides.log(:event) { "block-return-value" }
     res.must_equal "block-return-value"

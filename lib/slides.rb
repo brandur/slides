@@ -1,3 +1,5 @@
+require "time"
+
 module Slides
   module Log
     def log(event, attrs = {})
@@ -42,6 +44,8 @@ module Slides
         nil
       elsif v.is_a?(String) && v =~ /\s/
         quote_string(k, v)
+      elsif v.is_a?(Time)
+        "#{k}=#{v.iso8601}"
       else
         "#{k}=#{v}"
       end

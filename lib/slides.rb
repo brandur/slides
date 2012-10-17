@@ -1,3 +1,4 @@
+require "thread"
 require "time"
 
 module Slides
@@ -8,10 +9,10 @@ module Slides
         mtx.synchronize { $stdout.puts str }
       else
         start = Time.now
-        log(event, attrs.merge(at: :start))
+        log(event, attrs.merge(:at => :start))
         res = yield
-        log(event, attrs.merge(at: :finish,
-          elapsed: "#{((Time.now - start) * 1000).to_i}ms"))
+        log(event, attrs.merge(:at => :finish,
+          :elapsed => (Time.now - start).to_f))
         res
       end
     end
@@ -42,6 +43,8 @@ module Slides
       # only quote strings if they include whitespace
       if v == nil
         nil
+      elsif v.is_a?(Float)
+        "#{k}=#{format("%.3f", v)}"
       elsif v.is_a?(String) && v =~ /\s/
         quote_string(k, v)
       elsif v.is_a?(Time)

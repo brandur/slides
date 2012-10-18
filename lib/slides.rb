@@ -6,7 +6,7 @@ module Slides
     def log(event, attrs = {})
       unless block_given?
         str = "#{event} #{unparse(attrs)}"
-        mtx.synchronize { $stdout.puts str }
+        mtx.synchronize { stream.puts str }
       else
         start = Time.now
         log(event, attrs.merge(:at => :start))
@@ -15,6 +15,14 @@ module Slides
           :elapsed => (Time.now - start).to_f))
         res
       end
+    end
+
+    def stream
+      @stream || $stdout
+    end
+
+    def stream=(val)
+      @stream = val
     end
 
     private

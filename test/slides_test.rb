@@ -66,4 +66,11 @@ describe Slides::Log do
     Slides.log :event, :city => lambda { "Berlin" }
     out.must_equal "event city=Berlin"
   end
+
+  it "allows its stream to be set" do
+    stream = StringIO.new
+    Slides.stream = stream
+    Slides.stream.must_equal stream
+    Slides.stream = nil
+  end
 end

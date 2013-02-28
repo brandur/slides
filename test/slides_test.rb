@@ -1,5 +1,6 @@
 require "stringio"
-require "test_helper"
+
+require_relative "test_helper"
 
 describe Slides::Log do
   before do
@@ -65,6 +66,10 @@ describe Slides::Log do
   it "calls a lambda to get a value" do
     Slides.log :event, :city => lambda { "Berlin" }
     out.must_equal "event city=Berlin"
+  end
+
+  it "takes an array" do
+    Slides.log :event, [[:city, "Berlin"], [:landmark, "Spreepark"]]
   end
 
   it "allows its stream to be set" do

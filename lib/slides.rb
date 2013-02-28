@@ -3,16 +3,23 @@ require "time"
 
 module Slides
   module Log
-    def log(event, attrs = {})
-      unless block_given?
-        str = "#{event} #{unparse(attrs)}"
+    def log(event, attrs={}, &block)
+      log_array(event, attrs.map { |k, v| [k, v] }, &block)
+    end
+
+    def log_array(event, arr, &block)
+      unless block
+        str = "#{event} #{unparse(arr)}"
         mtx.synchronize { stream.puts str }
       else
+        arr = arr.dup
         start = Time.now
-        log(event, attrs.merge(:at => :start))
+        arr << [:at, :start]
+        log(event, arr)
         res = yield
-        log(event, attrs.merge(:at => :finish,
-          :elapsed => (Time.now - start).to_f))
+        arr.pop
+        arr << [:at, :finish] << [:elapsed, (Time.now - start).to_f]
+        log(event, arr)
         res
       end
     end

@@ -10,9 +10,9 @@ Slides.log(:app_created, app_id: @app.id, user_id: @user.id)
 ```
 
 ``` ruby
-app_id = nil
-Slides.log(:app_create, app_id: -> { app_id }, user_id: @user.id) do
-  app_id = AppCreator.new.run.id
+@app_id = nil
+Slides.log(:app_create, app_id: -> { @app_id }, user_id: @user.id) do
+  @app_id = AppCreator.new.run.id
 end
 
 => app_create user_id=23 at=start
